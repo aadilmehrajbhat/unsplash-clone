@@ -2,8 +2,12 @@
 
 This project lists photos from [Unsplash API](https://unsplash.com/documentation). Users can also search photos and also filter the results based on the color, orientation, and order filters. The photos are listed using infinite scroll.
 
-### [Live Demo](https://unsplash-react-clone.netlify.app/)
+### [Live Demo](https://unsplash-react-clone.netlify.app/)  
 
+
+
+![image](https://user-images.githubusercontent.com/26774310/124156866-c12fc080-dab5-11eb-9d2a-e7d6385affcc.png)
+![image](https://user-images.githubusercontent.com/26774310/124156898-cc82ec00-dab5-11eb-9c0c-0ddf979a4c4f.png)
 
 
 ## API Key (Client ID)
