@@ -2,6 +2,10 @@
 
 This project lists photos from [Unsplash API](https://unsplash.com/documentation). Users can also search photos and also filter the results based on the color, orientation, and order filters. The photos are listed using infinite scroll.
 
+### [Live Demo](https://unsplash-react-clone.netlify.app/)
+
+
+
 ## API Key (Client ID)
 
 The Unsplash client Id can be generated using the [developer account](https://unsplash.com/documentation#creating-a-developer-account). The client id is specified in the `.env` file in the project root directory and the environment variable namely `REACT_APP_UNSPLASH_CLIENT_ID` refers to API client id.
