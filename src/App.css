@@ -81,7 +81,7 @@
 .app-header {
   position: sticky;
   top: 0;
-  width: 100vw;
+  width: 100%;
   z-index: 1024;
   background: #fff;
   box-shadow: 0 8px 6px -6px rgb(0 0 0 / 9%);
@@ -131,6 +131,14 @@
 .app-nav {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+
+.app-content {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  margin-right: 1em;
 }
 
 .nav-search {
@@ -399,4 +407,14 @@
 
 .empty-content__image {
   max-width: 350px;
+}
+
+.github-link {
+  opacity: 0.7;
+  transition: opacity 300ms;
+}
+
+.github-link:hover {
+  opacity: 1;
+  cursor: pointer;
 }
