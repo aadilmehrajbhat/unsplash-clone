@@ -1,15 +1,15 @@
-import { ReactComponent as GithubOctocat } from '@assets/svgs/github_octocat.svg';
+import GitHubButton from 'react-github-btn';
 
 function GithubLink() {
   return (
-    <a
+    <GitHubButton
       href="https://github.com/AadilMehrajBhat/unsplash-clone"
-      className="github-link"
-      target="_blank"
-      rel="noreferrer"
+      data-size="large"
+      data-show-count="true"
+      aria-label="Star AadilMehrajBhat/unsplash-clone on GitHub"
     >
-      <GithubOctocat width={40} height={40} />
-    </a>
+      &nbsp;Star
+    </GitHubButton>
   );
 }
 
