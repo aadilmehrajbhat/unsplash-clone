@@ -16,7 +16,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": [
@@ -38,7 +39,8 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^5.5.0",
-    "jest-extended": "^0.11.5"
+    "jest-extended": "^0.11.5",
+    "react-scripts": "^4.0.3"
   },
   "jest": {
     "moduleNameMapper": {

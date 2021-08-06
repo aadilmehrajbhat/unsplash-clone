@@ -6,7 +6,6 @@ function GithubLink() {
       namespace="AadilMehrajBhat"
       repo="unsplash-clone"
       size="large"
-      showCount="true"
       type="stargazers"
       aria-label="Star AadilMehrajBhat/unsplash-clone on GitHub"
     >
