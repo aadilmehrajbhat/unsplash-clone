@@ -1,29 +1,32 @@
 import { useEffect } from 'react';
+import Link from 'next/link';
 import Logo from '@components/Logo';
 import SearchBar from '@components/SearchBar';
-import { useParams, useHistory } from 'react-router-dom';
 import { useUnsplashSearch } from '@contexts/search-context';
 import GithubLink from './GithubLink';
+import { useRouter } from 'next/router';
 
 function Header() {
-  const { query = '' } = useParams();
-  const history = useHistory();
+  const router = useRouter();
+  const { search } = router.query;
   const { setSearchQuery } = useUnsplashSearch();
 
-  useEffect(() => setSearchQuery(query), [query, setSearchQuery]);
+  useEffect(() => setSearchQuery(search), [search, setSearchQuery]);
 
   return (
     <header className="app-header">
       <nav className="app-nav">
         <div className="app-content">
-          <a className="app-logo" href="/">
-            <Logo />
-          </a>
+          <Link href="/">
+            <a className="app-logo">
+              <Logo />
+            </a>
+          </Link>
           <div className="nav-search">
             <SearchBar
               placeholder="Search free high-resolution photos"
-              defaultValue={query}
-              onSubmit={(value) => history.push(`/s/photos/${value}`)}
+              defaultValue={search}
+              onSubmit={(value) => router.push(`/s/photos/${value}`)}
             />
           </div>
         </div>

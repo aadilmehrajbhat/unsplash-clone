@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import DropdownMenu, { DropdownMenuItem } from '@components/DropdownMenu';
-import { ReactComponent as CheckIcon } from '@assets/svgs/check.svg';
+import { default as CheckIcon } from '@assets/svgs/check.svg';
 import { useUnsplashSearch } from '@contexts/search-context';
 
 const COLOR_OPTIONS = [

@@ -1,11 +1,13 @@
-import GitHubButton from 'react-github-btn';
+import GitHubButton from './GithubButton';
 
 function GithubLink() {
   return (
     <GitHubButton
-      href="https://github.com/AadilMehrajBhat/unsplash-clone"
-      data-size="large"
-      data-show-count="true"
+      namespace="AadilMehrajBhat"
+      repo="unsplash-clone"
+      size="large"
+      showCount="true"
+      type="stargazers"
       aria-label="Star AadilMehrajBhat/unsplash-clone on GitHub"
     >
       &nbsp;Star

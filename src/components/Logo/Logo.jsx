@@ -1,4 +1,4 @@
-import { ReactComponent as UnsplashLogo } from '@assets/svgs/unsplash.svg';
+import { default as UnsplashLogo } from '@assets/svgs/unsplash.svg';
 
 function Logo() {
   return (

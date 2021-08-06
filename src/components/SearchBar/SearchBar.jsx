@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useCallback, useEffect, useState } from 'react';
-import { ReactComponent as SearchIcon } from '@assets/svgs/search.svg';
-import { ReactComponent as CrossIcon } from '@assets/svgs/cross.svg';
+import { default as SearchIcon } from '@assets/svgs/search.svg';
+import { default as CrossIcon } from '@assets/svgs/cross.svg';
 
 function SearchBar({
   placeholder,

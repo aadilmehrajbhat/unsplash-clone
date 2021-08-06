@@ -1,4 +1,4 @@
-import { ReactComponent as PhotoIcon } from '@assets/svgs/photos.svg';
+import { default as PhotoIcon } from '@assets/svgs/photos.svg';
 import { useUnsplashSearch } from '@contexts/search-context';
 import { formatCountInThousands } from '@utils/strings';
 

@@ -4,7 +4,7 @@ export async function fetchUnsplashPhotos({ page = 1, pageSize = 20 } = {}) {
   const url = `${UNSPLASH_URL}/photos/?page=${page}&per_page=${pageSize}`;
   return fetch(url, {
     headers: {
-      Authorization: `Client-ID ${process.env.REACT_APP_UNSPLASH_CLIENT_ID}`,
+      Authorization: `Client-ID ${process.env.NEXT_PUBLIC_UNSPLASH_CLIENT_ID}`,
     },
   })
     .then((response) => {
@@ -44,7 +44,7 @@ export async function searchUnsplashPhotos({
 
   return fetch(url, {
     headers: {
-      Authorization: `Client-ID ${process.env.REACT_APP_UNSPLASH_CLIENT_ID}`,
+      Authorization: `Client-ID ${process.env.NEXT_PUBLIC_UNSPLASH_CLIENT_ID}`,
     },
   })
     .then((response) => {

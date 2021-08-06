@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { ReactComponent as CheckIcon } from '@assets/svgs/check.svg';
+import { default as CheckIcon } from '@assets/svgs/check.svg';
 
 function DropdownMenuItem({ children, onItemClick, checked, value, style }) {
   return (
