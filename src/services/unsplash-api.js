@@ -1,7 +1,10 @@
-const UNSPLASH_URL = 'https://api.unsplash.com';
+import getValue from 'lodash/get';
+
+const UNSPLASH_API_URL = 'https://api.unsplash.com';
+const UNSPLASH_WEB_URL = 'https://unsplash.com';
 
 export async function fetchUnsplashPhotos({ page = 1, pageSize = 20 } = {}) {
-  const url = `${UNSPLASH_URL}/photos/?page=${page}&per_page=${pageSize}`;
+  const url = `${UNSPLASH_API_URL}/photos/?page=${page}&per_page=${pageSize}`;
   return fetch(url, {
     headers: {
       Authorization: `Client-ID ${process.env.NEXT_PUBLIC_UNSPLASH_CLIENT_ID}`,
@@ -30,7 +33,7 @@ export async function searchUnsplashPhotos({
   color,
   orientation,
 } = {}) {
-  const url = new URL(`${UNSPLASH_URL}/search/photos/`);
+  const url = new URL(`${UNSPLASH_API_URL}/search/photos/`);
   const search = new URLSearchParams();
 
   search.append('query', query);
@@ -62,9 +65,44 @@ export async function searchUnsplashPhotos({
     });
 }
 
+export async function fetchUnsplashSearchSuggestions() {
+  const html = await (await fetch(UNSPLASH_WEB_URL)).text();
+  const match = html.match(/JSON.parse\((.*?)\);/);
+  let result = {
+    trendingSearches: null,
+    trendingTopics: null,
+    trendingCollections: null,
+  };
+
+  if (Array.isArray(match) && match.length > 1) {
+    const state = JSON.parse(JSON.parse(match[1]));
+
+    result = {
+      trendingTopics: getValue(
+        state,
+        'ui.searchSuggestions.trendingTopics',
+        null,
+      ),
+      trendingSearches: getValue(
+        state,
+        'ui.searchSuggestions.trendingSearches',
+        null,
+      ),
+      trendingCollections: getValue(
+        state,
+        'ui.searchSuggestions.trendingSearches',
+        null,
+      ),
+    };
+  }
+
+  return result;
+}
+
 const UnsplashApi = {
   fetchUnsplashPhotos,
   searchUnsplashPhotos,
+  fetchUnsplashSearchSuggestions,
 };
 
 export default UnsplashApi;
