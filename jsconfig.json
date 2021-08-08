@@ -11,7 +11,8 @@
       "@services/*": ["./services/*"],
       "@assets/*": ["./assets/*"],
       "@pages/*": ["./pages/*"],
-      "@contexts/*": ["./contexts/*"]
+      "@contexts/*": ["./contexts/*"],
+      "@styles/*": ["./styles/*"]
     }
   },
   "exclude": ["node_modules", "**/node_modules/*", "build"]

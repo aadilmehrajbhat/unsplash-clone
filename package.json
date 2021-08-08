@@ -13,6 +13,7 @@
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "styled-components": "^5.3.0",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
@@ -53,7 +54,8 @@
       "^@components(.*)$": "<rootDir>/src/components$1",
       "^@services(.*)$": "<rootDir>/src/services$1",
       "^@pages(.*)$": "<rootDir>/src/pages$1",
-      "^@contexts(.*)$": "<rootDir>/src/contexts$1"
+      "^@contexts(.*)$": "<rootDir>/src/contexts$1",
+      "^@styles(.*)$": "<rootDir>/src/styles$1"
     }
   }
 }
