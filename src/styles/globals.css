@@ -224,7 +224,7 @@ code {
   min-height: var(--search-header-height);
   width: 100vw;
   top: var(--header-height);
-  z-index: 1024;
+  z-index: 1;
   background: #fff;
   box-shadow: 0 8px 6px -6px rgb(0 0 0 / 9%);
   display: flex;

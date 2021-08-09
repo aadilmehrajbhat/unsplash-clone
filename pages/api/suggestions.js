@@ -1,6 +1,6 @@
 import Cors from 'cors';
 import { initMiddleware } from '@utils/middlewares';
-import { fetchUnsplashSearchSuggestions } from '@services/unsplash-api';
+import { scrapUnsplashSearchSuggestions } from '@services/unsplash-api';
 
 const cors = initMiddleware(
   Cors({
@@ -12,7 +12,7 @@ const cors = initMiddleware(
 export default async function handler(req, res) {
   try {
     await cors(req, res);
-    const suggestions = await fetchUnsplashSearchSuggestions();
+    const suggestions = await scrapUnsplashSearchSuggestions();
     res.status(200).json(suggestions);
   } catch (error) {
     console.log(error);

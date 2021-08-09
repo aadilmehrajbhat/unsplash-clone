@@ -65,7 +65,7 @@ export async function searchUnsplashPhotos({
     });
 }
 
-export async function fetchUnsplashSearchSuggestions() {
+export async function scrapUnsplashSearchSuggestions() {
   const html = await (await fetch(UNSPLASH_WEB_URL)).text();
   const match = html.match(/JSON.parse\((.*?)\);/);
   let result = {
@@ -99,9 +99,28 @@ export async function fetchUnsplashSearchSuggestions() {
   return result;
 }
 
+export function fetchUnsplashSearchSuggestions() {
+  const url = `/api/suggestions/`;
+  return fetch(url)
+    .then((response) => {
+      const status = response.status;
+      if (status === 200) {
+        return response.json();
+      }
+
+      return Promise.reject(new Error('[Invalid status code] - ' + status));
+    })
+    .catch((error) => {
+      throw new Error(
+        'Error while fetching the search suggestions: ' + error.message,
+      );
+    });
+}
+
 const UnsplashApi = {
   fetchUnsplashPhotos,
   searchUnsplashPhotos,
+  scrapUnsplashSearchSuggestions,
   fetchUnsplashSearchSuggestions,
 };
 
