@@ -8,6 +8,7 @@ import SearchSuggestion from './SearchSuggestion';
 const StyledSearchBar = styled.div`
   position: relative;
 `;
+
 function SearchBar({
   placeholder,
   hideClear,

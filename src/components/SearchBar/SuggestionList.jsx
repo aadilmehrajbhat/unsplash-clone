@@ -21,6 +21,9 @@ const SuggestionContent = styled.div`
 `;
 
 const SuggestionItem = styled.a`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 8px 16px;
   margin-right: 0.5em;
   margin-bottom: 0.5em;
@@ -35,14 +38,21 @@ const SuggestionItem = styled.a`
   }
 `;
 
-function SuggestionList({ title, suggestions }) {
+const SuggestionText = styled.span`
+  margin-left: 0.5em;
+`;
+
+function SuggestionList({ title, suggestions, startAdornment }) {
   return (
     <>
       <SuggestionHeading>{title}</SuggestionHeading>
       <SuggestionContent>
         {Children.map(suggestions, (suggestion) => (
           <Link href={`/s/photos/${suggestion}`} passHref>
-            <SuggestionItem>{suggestion}</SuggestionItem>
+            <SuggestionItem>
+              {startAdornment}
+              <SuggestionText>{suggestion}</SuggestionText>
+            </SuggestionItem>
           </Link>
         ))}
       </SuggestionContent>
