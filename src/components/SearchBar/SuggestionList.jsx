@@ -18,6 +18,7 @@ const SuggestionContent = styled.div`
   padding: 0;
   font-size: 14px;
   font-weight: 400;
+  margin-bottom: 1.5em;
 `;
 
 const SuggestionItem = styled.a`
@@ -33,13 +34,16 @@ const SuggestionItem = styled.a`
   cursor: pointer;
   text-decoration: none;
   transition: background-color 0.1s ease-in-out;
+  line-height: 1;
   &:hover {
     background-color: #f5f5f5;
   }
 `;
 
-const SuggestionText = styled.span`
-  margin-left: 0.5em;
+const SuggestionAdornment = styled.span`
+  display: flex;
+  align-items: center;
+  margin-right: 0.5em;
 `;
 
 function SuggestionList({ title, suggestions, startAdornment }) {
@@ -50,8 +54,10 @@ function SuggestionList({ title, suggestions, startAdornment }) {
         {Children.map(suggestions, (suggestion) => (
           <Link href={`/s/photos/${suggestion}`} passHref>
             <SuggestionItem>
-              {startAdornment}
-              <SuggestionText>{suggestion}</SuggestionText>
+              {startAdornment && (
+                <SuggestionAdornment>{startAdornment}</SuggestionAdornment>
+              )}
+              {suggestion}
             </SuggestionItem>
           </Link>
         ))}

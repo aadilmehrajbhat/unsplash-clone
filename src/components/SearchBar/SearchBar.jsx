@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { default as SearchIcon } from '@assets/svgs/search.svg';
 import { default as CrossIcon } from '@assets/svgs/cross.svg';
 import SearchSuggestion from './SearchSuggestion';
+import useRecentSearches from '@hooks/useRecentSearches';
 
 const StyledSearchBar = styled.div`
   position: relative;
@@ -18,13 +19,15 @@ function SearchBar({
 }) {
   const [value, setValue] = useState(defaultValue);
   const [hasInputFocus, setInputFocus] = useState(false);
+  const { setRecentSearches } = useRecentSearches();
 
   const onSearchSubmit = useCallback(
     (e) => {
       e.preventDefault();
+      setRecentSearches(value);
       onSubmit && onSubmit(value);
     },
-    [value, onSubmit],
+    [value, onSubmit, setRecentSearches],
   );
 
   useEffect(() => setValue(defaultValue || ''), [defaultValue]);
