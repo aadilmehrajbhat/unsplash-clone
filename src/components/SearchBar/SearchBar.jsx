@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { default as SearchIcon } from '@assets/svgs/search.svg';
 import { default as CrossIcon } from '@assets/svgs/cross.svg';
@@ -10,6 +10,10 @@ const StyledSearchBar = styled.div`
   position: relative;
 `;
 
+const StyledSearchIcon = styled(SearchIcon)`
+  vertical-align: middle;
+`;
+
 function SearchBar({
   placeholder,
   hideClear,
@@ -17,6 +21,7 @@ function SearchBar({
   onSubmit,
   onChange,
 }) {
+  const inputRef = useRef();
   const [value, setValue] = useState(defaultValue);
   const [hasInputFocus, setInputFocus] = useState(false);
   const { setRecentSearches } = useRecentSearches();
@@ -40,15 +45,22 @@ function SearchBar({
         data-testid="search-bar"
       >
         <button className="search-bar__submit" type="submit">
-          <SearchIcon width={24} height={24} />
+          <StyledSearchIcon width={24} height={24} />
         </button>
         <input
           className="search-bar__input"
           type="text"
+          ref={inputRef}
           placeholder={placeholder}
           value={value}
           onFocus={(_) => setInputFocus(true)}
           onBlur={(_) => setInputFocus(false)}
+          onKeyDown={(e) => {
+            if (e.key === 'Escape' && hasInputFocus) {
+              setInputFocus(false);
+              inputRef.current.blur();
+            }
+          }}
           onChange={(e) => {
             setValue(e.target.value);
             onChange && onChange(e.target.value);
