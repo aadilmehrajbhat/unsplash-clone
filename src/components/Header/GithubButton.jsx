@@ -75,7 +75,12 @@ export default class GitHubButton extends React.Component {
 
     return (
       <span {...rest} className={buttonClassName}>
-        <a className="gh-btn" href={this.getRepoUrl()} target="_blank">
+        <a
+          className="gh-btn"
+          href={this.getRepoUrl()}
+          target="_blank"
+          rel="noreferrer"
+        >
           <span className="gh-ico" aria-hidden="true"></span>
           <span className="gh-text">{typeToLabel[type]}</span>
         </a>
@@ -84,6 +89,7 @@ export default class GitHubButton extends React.Component {
           target="_blank"
           href={this.getCountUrl()}
           style={this.getCountStyle()}
+          rel="noreferrer"
         >
           {count}
         </a>
