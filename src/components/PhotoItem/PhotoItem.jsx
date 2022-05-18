@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
+import useMouseHover from '@hooks/useMouseHover';
+import AuthorDetails from './AuthorDetails';
 function PhotoItem({ photo }) {
+  const [ref, isHovering] = useMouseHover();
   return (
-    <S.Container>
+    <S.Container ref={ref}>
       <a
         href={photo.links.html}
         title={photo.alt_description}
@@ -10,6 +13,7 @@ function PhotoItem({ photo }) {
         rel="noopener noreferrer"
       >
         <S.Image src={photo.urls.small} alt={photo.alt_description} />
+        {isHovering && <S.AuthorDetails author={photo.user} />}
       </a>
     </S.Container>
   );
@@ -59,6 +63,11 @@ const S = {
     object-fit: cover;
     transition: opacity;
     cursor: zoom-in;
+  `,
+  AuthorDetails: styled(AuthorDetails)`
+    position: absolute;
+    bottom: 0;
+    margin: 1.45rem;
   `,
 };
 
