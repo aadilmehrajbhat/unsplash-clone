@@ -6,14 +6,6 @@ import { default as CrossIcon } from '@assets/svgs/cross.svg';
 import SearchSuggestion from './SearchSuggestion';
 import useRecentSearches from '@hooks/useRecentSearches';
 
-const StyledSearchBar = styled.div`
-  position: relative;
-`;
-
-const StyledSearchIcon = styled(SearchIcon)`
-  vertical-align: middle;
-`;
-
 function SearchBar({
   placeholder,
   hideClear,
@@ -38,17 +30,12 @@ function SearchBar({
   useEffect(() => setValue(defaultValue || ''), [defaultValue]);
 
   return (
-    <StyledSearchBar>
-      <form
-        className="search-bar"
-        onSubmit={onSearchSubmit}
-        data-testid="search-bar"
-      >
-        <button className="search-bar__submit" type="submit">
-          <StyledSearchIcon width={24} height={24} />
-        </button>
-        <input
-          className="search-bar__input"
+    <S.Container>
+      <S.Form onSubmit={onSearchSubmit} data-testid="search-bar">
+        <S.Submit type="submit">
+          <S.SearchIcon width={24} height={24} />
+        </S.Submit>
+        <S.Input
           type="text"
           ref={inputRef}
           placeholder={placeholder}
@@ -68,20 +55,71 @@ function SearchBar({
           data-testid="input"
         />
         {!hideClear && !!value && (
-          <button
-            className="search-bar__clear"
+          <S.Clear
             onClick={(_) => setValue('')}
             type="button"
             data-testid="clear-input"
           >
             <CrossIcon width={16} height={16} />
-          </button>
+          </S.Clear>
         )}
-      </form>
+      </S.Form>
       <SearchSuggestion visible={hasInputFocus && !value} />
-    </StyledSearchBar>
+    </S.Container>
   );
 }
+
+const S = {
+  Container: styled.div`
+    position: relative;
+  `,
+  Form: styled.form`
+    height: 40px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-radius: 24px;
+    background-color: #eee;
+    border: 1px solid transparent;
+    transition: background 0.3s, border 0.3s;
+    padding: 0 1rem;
+
+    &::focus-within {
+      background: #fff;
+      border-color: #d1d1d1;
+    }
+  `,
+  Input: styled.input`
+    background: transparent;
+    width: 100%;
+    display: inline-block;
+    height: 100%;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #111;
+    outline: none;
+  `,
+  Submit: styled.button`
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0 0.7em 0 0;
+    outline: none;
+  `,
+  Clear: styled.button`
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0 0 0 0.7em;
+    outline: none;
+  `,
+  SearchIcon: styled(SearchIcon)`
+    vertical-align: middle;
+  `,
+};
 
 SearchBar.defaultProps = {
   placeholder: 'Search...',

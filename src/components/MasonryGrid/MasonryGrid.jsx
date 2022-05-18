@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useMemo } from 'react';
 import useWindowSize from '@hooks/useWindowSize';
 import { chunk } from '@utils/lists';
-
+import styled from 'styled-components';
 function MasonryGrid({ breakpoints, children }) {
   const { width: viewportWidth } = useWindowSize();
 
@@ -20,16 +20,30 @@ function MasonryGrid({ breakpoints, children }) {
 
   const cells = useMemo(() => {
     return childrenByColumns.map((gridColumn, index) => {
-      return (
-        <div className="masonry-column" key={`column-${index}`}>
-          {gridColumn}
-        </div>
-      );
+      return <S.Column key={`column-${index}`}>{gridColumn}</S.Column>;
     });
   }, [childrenByColumns]);
 
-  return <section className="masonry-container">{cells}</section>;
+  return <S.Container>{cells}</S.Container>;
 }
+
+const S = {
+  Container: styled.section`
+    display: flex;
+    margin: 1rem 0;
+  `,
+  Column: styled.div`
+    flex: 1;
+
+    & + & {
+      margin-left: var(--masonry-col-gutter);
+    }
+
+    & > * {
+      margin-top: var(--masonry-row-gutter);
+    }
+  `,
+};
 
 MasonryGrid.defaultProps = {
   breakpoints: [],

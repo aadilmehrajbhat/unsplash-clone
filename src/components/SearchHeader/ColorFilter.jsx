@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import styled from 'styled-components';
 import DropdownMenu, { DropdownMenuItem } from '@components/DropdownMenu';
 import { default as CheckIcon } from '@assets/svgs/check.svg';
 import { useUnsplashSearch } from '@contexts/search-context';
@@ -37,16 +38,15 @@ function getSelectedToneColor(color) {
   const colorTone = COLOR_TONES.find(({ value }) => value === color);
 
   return (
-    <span className="selected-color-filter">
-      <span
+    <S.SelectedToneFilter>
+      <S.ToneFilterItem
         title={colorTone.label}
-        className="color-tone"
         style={{
           backgroundColor: colorTone.color,
         }}
-      ></span>
+      ></S.ToneFilterItem>
       &nbsp;&nbsp;{colorTone.label}
-    </span>
+    </S.SelectedToneFilter>
   );
 }
 
@@ -55,32 +55,25 @@ function ColorFilter() {
 
   const colorToneItems = useMemo(() => {
     return (
-      <div>
+      <S.ToneFilter>
         <div>Tones</div>
-        <div className="color-tone-filter">
+        <S.ToneFilterContainer>
           {COLOR_TONES.map(({ label, value, color }) => (
-            <span
+            <S.ToneFilterItem
               key={value}
               title={label}
-              className="color-tone"
               style={{ backgroundColor: color }}
               onClick={(_) =>
                 setSearchColor({ ...COLOR_OPTIONS[2], color: value })
               }
             >
               {value === searchColor.color && (
-                <span className="color-tone__checked">
-                  <CheckIcon
-                    width={16}
-                    height={16}
-                    style={{ fill: value === 'black' ? 'white' : 'black' }}
-                  />
-                </span>
+                <S.ToneFilterChecked value={value} />
               )}
-            </span>
+            </S.ToneFilterItem>
           ))}
-        </div>
-      </div>
+        </S.ToneFilterContainer>
+      </S.ToneFilter>
     );
   }, [searchColor.color, setSearchColor]);
 
@@ -114,5 +107,37 @@ function ColorFilter() {
     </DropdownMenu>
   );
 }
+
+const S = {
+  ToneFilter: styled.div`
+    cursor: text;
+  `,
+  ToneFilterContainer: styled.div`
+    display: grid;
+    grid-template-columns: repeat(5, 4fr);
+    grid-row-gap: 0.5rem;
+    margin: 0.8em 0;
+  `,
+  ToneFilterItem: styled.span`
+    display: inline-flex;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #cacaca;
+    border-radius: 50%;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+  `,
+  ToneFilterChecked: styled(CheckIcon)`
+    line-height: 1;
+    display: flex;
+    fill: ${({ value }) => (value === 'black' ? 'white' : 'black')};
+  `,
+  SelectedToneFilter: styled.span`
+    display: inline-flex;
+    align-items: center;
+  `,
+  SelectedToneColor: styled.span``,
+};
 
 export default ColorFilter;
