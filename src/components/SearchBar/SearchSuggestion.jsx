@@ -48,7 +48,10 @@ function SearchSuggestion({ visible = false }) {
 
 const S = {
   Suggestions: styled.div`
-    display: ${(props) => (props.visible ? 'block' : 'none')};
+    visibility: ${(props) => (props.visible ? 'visible' : 'hidden')};
+    pointer-events: ${(props) => (!props.visible ? 'none' : '')};
+    opacity: ${(props) => (props.visible ? 1 : 0)};
+    transition: opacity 350ms;
     position: absolute;
     background: white;
     padding: 1em 1em;

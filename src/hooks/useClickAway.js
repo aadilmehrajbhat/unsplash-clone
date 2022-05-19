@@ -9,7 +9,7 @@ function useClickAway({ root, callback }) {
         const $rootEl = root.current;
         const $targetEl = e.target;
 
-        !$rootEl.contains($targetEl) && callbackRef?.current();
+        !$rootEl.contains($targetEl) && callbackRef?.current?.();
       }
     },
     [root],

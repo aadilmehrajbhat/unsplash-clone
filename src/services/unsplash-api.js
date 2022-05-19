@@ -117,8 +117,33 @@ export function fetchUnsplashSearchSuggestions() {
     });
 }
 
+export function fetchPhotoById(id) {
+  const url = `${UNSPLASH_API_URL}/photos/${id}`;
+
+  return fetch(url, {
+    headers: {
+      Authorization: `Client-ID ${process.env.NEXT_PUBLIC_UNSPLASH_CLIENT_ID}`,
+    },
+  })
+    .then((response) => {
+      const status = response.status;
+      if (status === 200) {
+        return response.json();
+      }
+
+      return Promise.reject(new Error('[Invalid status code] - ' + status));
+    })
+    .catch((error) => {
+      throw new Error(
+        `Error while fetching the image details with image id (${id}): ` +
+          error.message,
+      );
+    });
+}
+
 const UnsplashApi = {
   fetchUnsplashPhotos,
+  fetchPhotoById,
   searchUnsplashPhotos,
   scrapUnsplashSearchSuggestions,
   fetchUnsplashSearchSuggestions,

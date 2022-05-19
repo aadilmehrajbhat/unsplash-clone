@@ -5,6 +5,7 @@ import { default as SearchIcon } from '@assets/svgs/search.svg';
 import { default as CrossIcon } from '@assets/svgs/cross.svg';
 import SearchSuggestion from './SearchSuggestion';
 import useRecentSearches from '@hooks/useRecentSearches';
+import useClickAway from '@hooks/useClickAway';
 
 function SearchBar({
   placeholder,
@@ -13,10 +14,18 @@ function SearchBar({
   onSubmit,
   onChange,
 }) {
+  const containerRef = useRef();
   const inputRef = useRef();
+  const [isSuggestionVisible, setSuggestionVisible] = useState(false);
   const [value, setValue] = useState(defaultValue);
   const [hasInputFocus, setInputFocus] = useState(false);
   const { setRecentSearches } = useRecentSearches();
+  useClickAway({
+    root: containerRef,
+    callback: () => {
+      setSuggestionVisible(false);
+    },
+  });
 
   const onSearchSubmit = useCallback(
     (e) => {
@@ -29,8 +38,16 @@ function SearchBar({
 
   useEffect(() => setValue(defaultValue || ''), [defaultValue]);
 
+  useEffect(() => {
+    if (hasInputFocus && !value) {
+      setSuggestionVisible(true);
+    } else if (value) {
+      setSuggestionVisible(false);
+    }
+  }, [value, hasInputFocus]);
+
   return (
-    <S.Container>
+    <S.Container ref={containerRef}>
       <S.Form onSubmit={onSearchSubmit} data-testid="search-bar">
         <S.Submit type="submit">
           <S.SearchIcon width={24} height={24} />
@@ -64,7 +81,7 @@ function SearchBar({
           </S.Clear>
         )}
       </S.Form>
-      <SearchSuggestion visible={hasInputFocus && !value} />
+      <SearchSuggestion visible={isSuggestionVisible} />
     </S.Container>
   );
 }
