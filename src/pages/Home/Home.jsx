@@ -1,6 +1,7 @@
 import PageLayout from '@components/PageLayout';
 import PhotoGallery from '@components/PhotoGallery/PhotoGallery';
 import Container from '@components/Container';
+import FeaturedPhoto from '@components/FeaturedPhoto';
 import useUnsplashPhotos from '@hooks/useUnsplashPhotos';
 
 function Home() {
@@ -8,6 +9,7 @@ function Home() {
 
   return (
     <PageLayout>
+      <FeaturedPhoto />
       <Container>
         <PhotoGallery photos={photos} onFetchPhotos={fetchPhotos} />
       </Container>

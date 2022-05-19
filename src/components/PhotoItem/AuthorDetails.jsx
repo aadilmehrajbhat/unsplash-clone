@@ -9,7 +9,10 @@ const AuthorDetails = ({ className, author }) => (
       target="_blank"
       rel="noopener noreferrer"
     >
-      <S.Avatar src={author.profile_image?.medium} />
+      <S.Avatar
+        src={author.profile_image?.medium}
+        alt={`${author.first_name} ${author.last_name ?? ''}`}
+      />
     </a>
     <S.Content>
       <S.Title
