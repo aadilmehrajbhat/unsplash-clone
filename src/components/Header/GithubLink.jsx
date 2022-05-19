@@ -22,10 +22,11 @@ const S = {
     height: 40px;
     fill: currentColor;
     color: #000;
+    opacity: 0.75;
     margin-right: 0.5em;
 
     &:hover {
-      opacity: 0.7;
+      opacity: 1;
     }
   `,
 };
