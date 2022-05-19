@@ -27,26 +27,6 @@ function DropdownMenu({ defaultTitle, selected, children }) {
   );
 }
 
-const K = {
-  fadeIn: keyframes`
-     0% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
-  `,
-
-  fadeOut: keyframes`
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  `,
-};
-
 const S = {
   Container: styled.div`
     position: relative;
@@ -102,8 +82,6 @@ const S = {
     z-index: 1;
     box-shadow: 0 8px 16px rgb(0 0 0 / 16%);
     border-radius: 4px;
-    animation-name: ${({ active }) => (active ? K.fadeIn : K.fadeOut)};
-    animation-duration: 0.3s;
   `,
 };
 
