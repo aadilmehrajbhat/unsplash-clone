@@ -3,9 +3,9 @@ import styled, { keyframes } from 'styled-components';
 import useMouseHover from '@hooks/useMouseHover';
 import AuthorDetails from './AuthorDetails';
 import DownloadPhoto from './DownloadPhoto';
-
 function PhotoItem({ photo }) {
   const [ref, isHovering] = useMouseHover();
+
   return (
     <S.Container ref={ref}>
       <S.Link
@@ -14,7 +14,13 @@ function PhotoItem({ photo }) {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <S.Image src={photo.urls.small} alt={photo.alt_description} />
+        <S.Image
+          src={photo.urls.small}
+          alt={photo.alt_description}
+          aspectWidth={photo.width}
+          aspectHeight={photo.height}
+          loading="lazy"
+        />
         {isHovering && (
           <S.BottomBar>
             <AuthorDetails author={photo.user} />
@@ -67,9 +73,20 @@ const S = {
   Link: styled.a`
     display: flex;
   `,
+  Canvas: styled.canvas`
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+  `,
   Image: styled.img`
     width: 100%;
     height: auto;
+    aspect-ratio: ${({ aspectWidth, aspectHeight }) =>
+      `${aspectWidth} / ${aspectHeight}`}
     object-fit: cover;
     transition: opacity;
     cursor: zoom-in;
