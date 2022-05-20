@@ -10,6 +10,9 @@ import useClickAway from '@hooks/useClickAway';
 function SearchBar({
   placeholder,
   hideClear,
+  jumbo,
+  rounded,
+  showSuggestions,
   defaultValue,
   onSubmit,
   onChange,
@@ -20,6 +23,7 @@ function SearchBar({
   const [value, setValue] = useState(defaultValue);
   const [hasInputFocus, setInputFocus] = useState(false);
   const { setRecentSearches } = useRecentSearches();
+
   useClickAway({
     root: containerRef,
     callback: () => {
@@ -48,11 +52,17 @@ function SearchBar({
 
   return (
     <S.Container ref={containerRef}>
-      <S.Form onSubmit={onSearchSubmit} data-testid="search-bar">
+      <S.Form
+        onSubmit={onSearchSubmit}
+        data-testid="search-bar"
+        jumbo={jumbo}
+        rounded={rounded}
+      >
         <S.Submit type="submit">
           <S.SearchIcon width={24} height={24} />
         </S.Submit>
         <S.Input
+          jumbo={jumbo}
           type="text"
           ref={inputRef}
           placeholder={placeholder}
@@ -62,6 +72,8 @@ function SearchBar({
           onKeyDown={(e) => {
             if (e.key === 'Escape' && hasInputFocus) {
               setInputFocus(false);
+
+              setSuggestionVisible(false);
               inputRef.current.blur();
             }
           }}
@@ -73,15 +85,24 @@ function SearchBar({
         />
         {!hideClear && !!value && (
           <S.Clear
-            onClick={(_) => setValue('')}
+            onClick={(_) => {
+              inputRef.current.focus();
+              setValue('');
+              setSuggestionVisible(true);
+            }}
             type="button"
             data-testid="clear-input"
           >
-            <CrossIcon width={16} height={16} />
+            <S.CrossIcon jumbo={jumbo} />
           </S.Clear>
         )}
       </S.Form>
-      <SearchSuggestion visible={isSuggestionVisible} />
+
+      {showSuggestions && (
+        <SearchSuggestion
+          visible={isSuggestionVisible || (hasInputFocus && !value)}
+        />
+      )}
     </S.Container>
   );
 }
@@ -91,11 +112,11 @@ const S = {
     position: relative;
   `,
   Form: styled.form`
-    height: 40px;
+    height: ${({ jumbo }) => (jumbo ? '54px' : '40px')};
     width: 100%;
     display: flex;
     align-items: center;
-    border-radius: 24px;
+    border-radius: ${({ rounded }) => (rounded ? '4px' : '24px')};
     background-color: #eee;
     border: 1px solid transparent;
     transition: background 0.3s, border 0.3s;
@@ -112,7 +133,7 @@ const S = {
     display: inline-block;
     height: 100%;
     border: none;
-    font-size: 0.9rem;
+    font-size: ${({ jumbo }) => (jumbo ? '1rem' : '0.9rem')};
     font-weight: 500;
     color: #111;
     outline: none;
@@ -133,17 +154,32 @@ const S = {
     padding: 0 0 0 0.7em;
     outline: none;
   `,
+  CrossIcon: styled(CrossIcon)`
+    width: ${({ jumbo }) => (jumbo ? '18px' : '16px')};
+    height: ${({ jumbo }) => (jumbo ? '18px' : '16px')};
+  `,
   SearchIcon: styled(SearchIcon)`
     vertical-align: middle;
+    opacity: 0.6;
+
+    &:hover {
+      opacity: 1;
+    }
   `,
 };
 
 SearchBar.defaultProps = {
   placeholder: 'Search...',
   defaultValue: '',
+  jumbo: false,
+  rounded: false,
+  showSuggestions: false,
 };
 
 SearchBar.propTypes = {
+  jumbo: PropTypes.bool,
+  rounded: PropTypes.bool,
+  showSuggestions: PropTypes.bool,
   placeholder: PropTypes.string,
   defaultValue: PropTypes.string,
   hideClear: PropTypes.bool,

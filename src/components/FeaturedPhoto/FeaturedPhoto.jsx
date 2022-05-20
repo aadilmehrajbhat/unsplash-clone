@@ -1,7 +1,10 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import SearchBar from '@components/SearchBar';
+import { useRouter } from 'next/router';
 
 const FeaturedPhoto = ({ photo }) => {
+  const router = useRouter();
+
   if (!photo) return null;
 
   return (
@@ -21,6 +24,13 @@ const FeaturedPhoto = ({ photo }) => {
           <br />
           Powered by creators everywhere.
         </S.Caption>
+        <SearchBar
+          placeholder="Search free high-resolution photos"
+          jumbo
+          rounded
+          showSuggestions
+          onSubmit={(value) => router.push(`/s/photos/${value}`)}
+        />
         <S.BottomBar>
           <S.Text>
             <S.Link
@@ -52,7 +62,7 @@ const S = {
   Container: styled.section`
     position: relative;
     width: 100%;
-    height: 65vh;
+    height: 75vh;
     display: flex;
     align-items: center;
     justify-content: center;

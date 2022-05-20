@@ -11,6 +11,7 @@ function Header() {
   const router = useRouter();
   const { search } = router.query;
   const { setSearchQuery } = useUnsplashSearch();
+  const isIndexPage = router.asPath === '/';
 
   useEffect(() => setSearchQuery(search), [search, setSearchQuery]);
 
@@ -28,6 +29,7 @@ function Header() {
               placeholder="Search free high-resolution photos"
               defaultValue={search}
               onSubmit={(value) => router.push(`/s/photos/${value}`)}
+              showSuggestions={!isIndexPage}
             />
           </S.SearchContainer>
         </S.Main>
