@@ -3,26 +3,34 @@ import { useState, useRef, Children } from 'react';
 import useClickAway from '@hooks/useClickAway';
 import styled, { keyframes } from 'styled-components';
 
-function DropdownMenu({ defaultTitle, selected, children }) {
+function DropdownMenu({
+  'data-aid': dataAid,
+  defaultTitle,
+  selected,
+  children,
+}) {
   const [active, setActive] = useState(false);
   const containerRef = useRef();
+
   useClickAway({
     root: containerRef,
     callback: () => setActive(false),
   });
 
   return (
-    <S.Container active={active} ref={containerRef} data-testid="dropdown-menu">
+    <S.Container active={active} ref={containerRef} data-aid={dataAid}>
       <S.Action
+        data-aid="toggle-menu"
         onClick={() => setActive((p) => !p)}
-        data-testid="action-btn"
         active={active}
       >
         {selected || defaultTitle}
       </S.Action>
-      <S.Content onClick={(_) => setActive(false)} active={active}>
-        {children}
-      </S.Content>
+      {active && (
+        <S.Content data-aid="menu-content" onClick={(_) => setActive(false)}>
+          {children}
+        </S.Content>
+      )}
     </S.Container>
   );
 }
@@ -71,7 +79,6 @@ const S = {
   `,
   Content: styled.div`
     position: absolute;
-    display: ${({ active }) => (active ? 'block' : 'none')};
     top: 100%;
     background: rgb(255, 255, 255);
     right: 0.5rem;
@@ -85,7 +92,12 @@ const S = {
   `,
 };
 
+DropdownMenu.defaultProps = {
+  'data-aid': 'dropdown-menu',
+};
+
 DropdownMenu.propTypes = {
+  'data-aid': PropTypes.string,
   defaultTitle: PropTypes.string,
   selected: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   children: (props, propName, componentName) => {

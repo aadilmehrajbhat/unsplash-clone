@@ -27,5 +27,6 @@ The project source code can be found in the `src` directory. The structure is di
 5. `utils`: application helpers
 6. `services`: includes apis and other services
 7. `assets`: all the application assets
+8. `tests`: wrappers and helpers for unit and E2e testing
 
 Each modules can be accessed using the aliases such as `@components` as specified in the `jsconfig.json`. Also for testing as specified in jest config in the `package.json`.

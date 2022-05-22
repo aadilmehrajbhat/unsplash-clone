@@ -2,23 +2,21 @@ import PropTypes from 'prop-types';
 import { default as CheckIcon } from '@assets/svgs/check.svg';
 import styled from 'styled-components';
 
-function DropdownMenuItem({ children, onItemClick, checked, value, style }) {
-  return (
-    <S.Container
-      data-checked={checked}
-      role="button"
-      onClick={(_) => onItemClick && onItemClick(value)}
-      style={style}
-      data-testid="dropdown-menu-item"
-      checked={checked}
-    >
-      <S.Check checked={checked}>
-        <CheckIcon width={20} height={20} />
-      </S.Check>
-      {children}
-    </S.Container>
-  );
-}
+const DropdownMenuItem = ({ children, onItemClick, checked, value, style }) => (
+  <S.Container
+    data-aid="dropdown-menu-item"
+    data-checked={checked}
+    role="button"
+    onClick={(_) => onItemClick && onItemClick(value)}
+    style={style}
+    checked={checked}
+  >
+    <S.Check checked={checked}>
+      <CheckIcon width={20} height={20} />
+    </S.Check>
+    {children}
+  </S.Container>
+);
 
 const S = {
   Container: styled.div`

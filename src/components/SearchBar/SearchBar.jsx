@@ -34,6 +34,9 @@ function SearchBar({
   const onSearchSubmit = useCallback(
     (e) => {
       e.preventDefault();
+
+      if (!value) return;
+
       setRecentSearches(value);
       onSubmit && onSubmit(value);
     },
@@ -51,17 +54,13 @@ function SearchBar({
   }, [value, hasInputFocus]);
 
   return (
-    <S.Container ref={containerRef}>
-      <S.Form
-        onSubmit={onSearchSubmit}
-        data-testid="search-bar"
-        jumbo={jumbo}
-        rounded={rounded}
-      >
+    <S.Container data-aid="search-bar" ref={containerRef}>
+      <S.Form onSubmit={onSearchSubmit} jumbo={jumbo} rounded={rounded}>
         <S.Submit type="submit">
           <S.SearchIcon width={24} height={24} />
         </S.Submit>
         <S.Input
+          data-aid="input"
           jumbo={jumbo}
           type="text"
           ref={inputRef}
@@ -79,19 +78,19 @@ function SearchBar({
           }}
           onChange={(e) => {
             setValue(e.target.value);
+
             onChange && onChange(e.target.value);
           }}
-          data-testid="input"
         />
         {!hideClear && !!value && (
           <S.Clear
+            data-aid="clear-input"
             onClick={(_) => {
               inputRef.current.focus();
               setValue('');
               setSuggestionVisible(true);
             }}
             type="button"
-            data-testid="clear-input"
           >
             <S.CrossIcon jumbo={jumbo} />
           </S.Clear>
@@ -122,7 +121,7 @@ const S = {
     transition: background 0.3s, border 0.3s;
     padding: 0 1rem;
 
-    &::focus-within {
+    &:focus-within {
       background: #fff;
       border-color: #d1d1d1;
     }
