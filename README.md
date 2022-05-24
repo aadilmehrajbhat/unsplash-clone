@@ -4,7 +4,8 @@ This project lists photos from [Unsplash API](https://unsplash.com/documentation
 
 ### [Live Demo](https://unsplash.aadilmehraj.dev/)
 
-![image](https://user-images.githubusercontent.com/26774310/124156866-c12fc080-dab5-11eb-9d2a-e7d6385affcc.png)
+![Screenshot 2022-05-24 at 6 56 01 PM](https://user-images.githubusercontent.com/26774310/170046896-9df21bb0-e0bf-49d4-a8b6-2af60081968e.png)
+![Screenshot 2022-05-24 at 6 57 13 PM](https://user-images.githubusercontent.com/26774310/170046947-2e74a737-8e45-4420-99f9-bb5235790cbf.png)
 ![image](https://user-images.githubusercontent.com/26774310/124156898-cc82ec00-dab5-11eb-9c0c-0ddf979a4c4f.png)
 
 ## API Key (Client ID)
