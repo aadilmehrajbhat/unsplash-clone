@@ -13,6 +13,9 @@ export default async function handler(req, res) {
   try {
     await cors(req, res);
     const suggestions = await scrapUnsplashSearchSuggestions();
+
+    res.setHeader('Cache-Control', `public, max-age=${2 * 60 * 60}`);
+
     res.status(200).json(suggestions);
   } catch (error) {
     console.log(error);

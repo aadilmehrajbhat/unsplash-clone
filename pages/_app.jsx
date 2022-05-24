@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { UnsplashSearchProvider } from '@contexts/search-context';
 import ThemeProvider from '@styles/index';
+import { QueryClientProvider, ReactQueryDevtools } from '@lib/query-client';
 
 function UnsplashApp({ Component, pageProps }) {
   return (
@@ -8,11 +9,14 @@ function UnsplashApp({ Component, pageProps }) {
       <Head>
         <title>Beautiful Free Images & Photos | Unsplash</title>
       </Head>
-      <ThemeProvider>
-        <UnsplashSearchProvider>
-          <Component {...pageProps} />
-        </UnsplashSearchProvider>
-      </ThemeProvider>
+      <QueryClientProvider>
+        <ThemeProvider>
+          <UnsplashSearchProvider>
+            <Component {...pageProps} />
+          </UnsplashSearchProvider>
+        </ThemeProvider>
+        <ReactQueryDevtools />
+      </QueryClientProvider>
     </>
   );
 }

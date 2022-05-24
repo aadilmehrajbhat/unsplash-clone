@@ -5,6 +5,7 @@ import * as matchers from 'jest-extended';
 import { configure } from '@testing-library/dom';
 import matchMediaPolyfill from 'mq-polyfill';
 import axios from 'axios';
+import { setLogger } from 'react-query';
 
 matchMediaPolyfill(window);
 
@@ -24,3 +25,9 @@ configure({
 });
 
 axios.defaults.adapter = require('axios/lib/adapters/http');
+
+setLogger({
+  log: console.log,
+  warn: console.warn,
+  error: () => {},
+});

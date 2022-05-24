@@ -13,7 +13,8 @@
       "@pages/*": ["./pages/*"],
       "@contexts/*": ["./contexts/*"],
       "@styles/*": ["./styles/*"],
-      "@tests/*": ["./tests/*"]
+      "@tests/*": ["./tests/*"],
+      "@lib/*": ["./lib/*"]
     }
   },
   "exclude": ["node_modules", "**/node_modules/*", "build"]

@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
 import mock from 'nock';
 import ThemeProvider from '@styles/index';
+import { QueryClientProvider, createClient } from '@lib/query-client';
 
 export {
   render,
@@ -18,7 +19,12 @@ export const renderWithContext = ({
   component: Component,
   props: componentProps = {},
 }) => {
-  contexts = [ThemeProvider, ...contexts];
+  const queryClient = createClient({ queries: { retry: false } });
+  contexts = [
+    [QueryClientProvider, { client: queryClient }],
+    ThemeProvider,
+    ...contexts,
+  ];
 
   const ComponentWithContexts = contexts
     .reverse()

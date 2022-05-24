@@ -18,6 +18,7 @@ const customJestConfig = {
     '^@contexts(.*)$': '<rootDir>/src/contexts$1',
     '^@styles(.*)$': '<rootDir>/src/styles$1',
     '^@tests(.*)$': '<rootDir>/src/tests$1',
+    '^@lib(.*)$': '<rootDir>/src/lib$1',
   },
   testEnvironment: 'jest-environment-jsdom',
   resetMocks: false,

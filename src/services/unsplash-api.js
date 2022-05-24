@@ -56,30 +56,31 @@ export async function scrapUnsplashSearchSuggestions() {
   });
   const match = html.match(/JSON.parse\((.*?)\);/);
   let result = {
-    trendingSearches: null,
-    trendingTopics: null,
-    trendingCollections: null,
+    trendingSearches: [],
+    trendingTopics: [],
+    trendingCollections: [],
   };
 
   if (Array.isArray(match) && match.length > 1) {
     const state = JSON.parse(JSON.parse(match[1]));
+    const filterValues = (value) => !value || value !== 'null';
 
     result = {
       trendingTopics: getValue(
         state,
         'ui.searchSuggestions.trendingTopics',
-        null,
-      ),
+        [],
+      ).filter(filterValues),
       trendingSearches: getValue(
         state,
         'ui.searchSuggestions.trendingSearches',
-        null,
-      ),
+        [],
+      ).filter(filterValues),
       trendingCollections: getValue(
         state,
         'ui.searchSuggestions.trendingSearches',
-        null,
-      ),
+        [],
+      ).filter(filterValues),
     };
   }
 
@@ -87,7 +88,7 @@ export async function scrapUnsplashSearchSuggestions() {
 }
 
 export function fetchUnsplashSearchSuggestions() {
-  const url = `/api/suggestions/`;
+  const url = `/api/suggestions`;
   return appClient
     .get(url)
     .then((response) => {

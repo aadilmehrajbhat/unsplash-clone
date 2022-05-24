@@ -6,19 +6,12 @@ import SuggestionList from './SuggestionList';
 import { default as TrendIcon } from '@assets/svgs/trend.svg';
 import useRecentSearches from '@hooks/useRecentSearches';
 import useMount from '@hooks/useMount';
+import useSearchSuggestions from '@hooks/useSearchSuggestions';
 
 function SearchSuggestion({ visible = false }) {
-  const [suggestions, setSuggestions] = useState(null);
+  const { trendingSearches } = useSearchSuggestions();
   const { recentSearches, clearRecentSearches } = useRecentSearches();
   const isCSR = useMount();
-
-  useEffect(() => {
-    fetchUnsplashSearchSuggestions().then(setSuggestions).catch(console.log);
-  }, []);
-
-  const trendingSearches = useMemo(() => {
-    return getValue(suggestions, 'trendingSearches', null);
-  }, [suggestions]);
 
   if (!isCSR) return null;
 

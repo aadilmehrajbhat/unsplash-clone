@@ -47,7 +47,7 @@ describe('<SearchSuggestion />', () => {
     trendingSearches = [],
     trendingCollections = [],
   } = {}) =>
-    mock(BASE_URL).get('/api/suggestions/').reply(200, {
+    mock(BASE_URL).get('/api/suggestions').reply(200, {
       trendingTopics,
       trendingSearches,
       trendingCollections,
