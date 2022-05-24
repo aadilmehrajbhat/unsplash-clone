@@ -41,11 +41,15 @@ class BaseComponentDriver {
   triggerEvent(type, data) {
     fireEvent[type](this.element, data);
   }
+
+  getAttribute(attribute) {
+    return this.element.getAttribute(attribute);
+  }
 }
 
 BaseComponentDriver.prototype.toString = function () {
   return `${this.constructor.name} ${
-    this.aid ? `(${this.aid})` : ''
+    this.aid ? `(aid: ${this.aid})` : ''
   }:\n${prettyDOM(this.element)}`;
 };
 

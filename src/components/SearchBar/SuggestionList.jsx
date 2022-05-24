@@ -1,22 +1,32 @@
+import PropTypes from 'prop-types';
 import { Children } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 
-function SuggestionList({ title, suggestions, startAdornment }) {
+function SuggestionList({
+  'data-aid': dataAid,
+  title,
+  suggestions,
+  startAdornment,
+}) {
   return (
-    <>
-      <S.Heading>{title}</S.Heading>
-      <S.Content>
+    <div data-aid={dataAid}>
+      <S.Heading data-aid="title">{title}</S.Heading>
+      <S.Content data-aid="content">
         {Children.map(suggestions, (suggestion) => (
-          <Link href={`/s/photos/${suggestion}`} passHref>
-            <S.Item>
-              {startAdornment && <S.Adornment>{startAdornment}</S.Adornment>}
+          <Link href={`/s/photos/${suggestion}`} passHref key={suggestion}>
+            <S.Item data-aid="suggestion">
+              {startAdornment && (
+                <S.Adornment data-aid="start-adornment">
+                  {startAdornment}
+                </S.Adornment>
+              )}
               {suggestion}
             </S.Item>
           </Link>
         ))}
       </S.Content>
-    </>
+    </div>
   );
 }
 
@@ -61,6 +71,16 @@ const S = {
     align-items: center;
     margin-right: 0.5em;
   `,
+};
+
+SuggestionList.defaultProps = {
+  'data-aid': 'suggestion-list',
+};
+
+SuggestionList.propTypes = {
+  'data-aid': PropTypes.string,
+  suggestions: PropTypes.arrayOf(PropTypes.string),
+  startAdornment: PropTypes.node,
 };
 
 export default SuggestionList;

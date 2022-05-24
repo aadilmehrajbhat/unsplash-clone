@@ -1,19 +1,15 @@
+import axios from 'axios';
 import getValue from 'lodash/get';
-
-const UNSPLASH_API_URL = 'https://api.unsplash.com';
-const UNSPLASH_WEB_URL = 'https://unsplash.com';
+import { appClient, unsplashApiClient, unsplashWebClient } from './constants';
 
 export async function fetchUnsplashPhotos({ page = 1, pageSize = 20 } = {}) {
-  const url = `${UNSPLASH_API_URL}/photos/?page=${page}&per_page=${pageSize}`;
-  return fetch(url, {
-    headers: {
-      Authorization: `Client-ID ${process.env.NEXT_PUBLIC_UNSPLASH_CLIENT_ID}`,
-    },
-  })
+  const url = `/photos/?page=${page}&per_page=${pageSize}`;
+  return unsplashApiClient
+    .get(url)
     .then((response) => {
-      const status = response.status;
+      const { status, data } = response;
       if (status === 200) {
-        return response.json();
+        return data;
       }
 
       return Promise.reject(new Error('[Invalid status code] - ' + status));
@@ -27,33 +23,22 @@ export async function fetchUnsplashPhotos({ page = 1, pageSize = 20 } = {}) {
 
 export async function searchUnsplashPhotos({
   page = 1,
-  pageSize = 20,
+  pageSize: page_size = 20,
   query,
-  orderBy,
+  orderBy: order_by,
   color,
   orientation,
 } = {}) {
-  const url = new URL(`${UNSPLASH_API_URL}/search/photos/`);
-  const search = new URLSearchParams();
+  const url = `/search/photos/`;
 
-  search.append('query', query);
-  page && search.append('page', page);
-  pageSize && search.append('per_page', pageSize);
-  orderBy && search.append('order_by', orderBy);
-  color && search.append('color', color);
-  orientation && search.append('orientation', orientation);
-
-  url.search = search;
-
-  return fetch(url, {
-    headers: {
-      Authorization: `Client-ID ${process.env.NEXT_PUBLIC_UNSPLASH_CLIENT_ID}`,
-    },
-  })
+  return unsplashApiClient
+    .get(url, {
+      params: { query, page, page_size, order_by, orientation, color, query },
+    })
     .then((response) => {
-      const status = response.status;
+      const { status, data } = response;
       if (status === 200) {
-        return response.json();
+        return data;
       }
 
       return Promise.reject(new Error('[Invalid status code] - ' + status));
@@ -66,7 +51,9 @@ export async function searchUnsplashPhotos({
 }
 
 export async function scrapUnsplashSearchSuggestions() {
-  const html = await (await fetch(UNSPLASH_WEB_URL)).text();
+  const { data: html } = await unsplashWebClient.get('/', {
+    responseType: 'text',
+  });
   const match = html.match(/JSON.parse\((.*?)\);/);
   let result = {
     trendingSearches: null,
@@ -101,11 +88,12 @@ export async function scrapUnsplashSearchSuggestions() {
 
 export function fetchUnsplashSearchSuggestions() {
   const url = `/api/suggestions/`;
-  return fetch(url)
+  return appClient
+    .get(url)
     .then((response) => {
-      const status = response.status;
+      const { status, data } = response;
       if (status === 200) {
-        return response.json();
+        return response.data;
       }
 
       return Promise.reject(new Error('[Invalid status code] - ' + status));
@@ -118,17 +106,14 @@ export function fetchUnsplashSearchSuggestions() {
 }
 
 export function fetchPhotoById(id) {
-  const url = `${UNSPLASH_API_URL}/photos/${id}`;
+  const url = `/photos/${id}`;
 
-  return fetch(url, {
-    headers: {
-      Authorization: `Client-ID ${process.env.NEXT_PUBLIC_UNSPLASH_CLIENT_ID}`,
-    },
-  })
+  return unsplashApiClient
+    .get(url)
     .then((response) => {
-      const status = response.status;
+      const { status, data } = response;
       if (status === 200) {
-        return response.json();
+        return data;
       }
 
       return Promise.reject(new Error('[Invalid status code] - ' + status));

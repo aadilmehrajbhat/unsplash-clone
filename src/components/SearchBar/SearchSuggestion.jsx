@@ -5,10 +5,12 @@ import { fetchUnsplashSearchSuggestions } from '@services/unsplash-api';
 import SuggestionList from './SuggestionList';
 import { default as TrendIcon } from '@assets/svgs/trend.svg';
 import useRecentSearches from '@hooks/useRecentSearches';
+import useMount from '@hooks/useMount';
 
 function SearchSuggestion({ visible = false }) {
   const [suggestions, setSuggestions] = useState(null);
   const { recentSearches, clearRecentSearches } = useRecentSearches();
+  const isCSR = useMount();
 
   useEffect(() => {
     fetchUnsplashSearchSuggestions().then(setSuggestions).catch(console.log);
@@ -18,17 +20,25 @@ function SearchSuggestion({ visible = false }) {
     return getValue(suggestions, 'trendingSearches', null);
   }, [suggestions]);
 
-  if (!trendingSearches) return null;
+  if (!isCSR) return null;
 
   return (
-    <S.Suggestions visible={visible}>
+    <S.Suggestions
+      data-aid="search-suggestion"
+      visible={visible && trendingSearches?.length}
+    >
       {Array.isArray(recentSearches) && recentSearches.length ? (
         <SuggestionList
+          data-aid="recent-searches"
           title={
             <>
-              Search suggestions &middot;
-              <S.ClearRecentSearches onClick={clearRecentSearches}>
-                Clear
+              Search suggestions
+              <S.ClearRecentSearches
+                data-aid="clear"
+                onClick={clearRecentSearches}
+              >
+                {' '}
+                &middot;Clear
               </S.ClearRecentSearches>
             </>
           }
@@ -37,6 +47,7 @@ function SearchSuggestion({ visible = false }) {
       ) : null}
       {trendingSearches && (
         <SuggestionList
+          data-aid="trending-searches"
           title="Trending Searches"
           suggestions={trendingSearches}
           startAdornment={<S.TrendIcon />}
