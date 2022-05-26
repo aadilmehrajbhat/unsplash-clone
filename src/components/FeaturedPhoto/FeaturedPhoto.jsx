@@ -72,7 +72,7 @@ const S = {
     background-image: ${({ background }) => `url(${background})`};
     background-origin: border-box;
     background-position: center center;
-    background-size: 130% auto;
+    background-size: cover;
     background-repeat: no-repeat;
     &:after {
       content: '';
@@ -88,6 +88,10 @@ const S = {
       left: 0;
       width: 100%;
       height: 100%;
+    }
+
+    @media (min-width: 768px) {
+      background-size: 130% auto;
     }
   `,
   Content: styled.div`
