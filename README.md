@@ -1,11 +1,22 @@
 # Gallery App for listing photos from Unsplash
 
+![GitHub last commit](https://img.shields.io/github/last-commit/aadilmehrajbhat/unsplash-clone)
+
 This project lists photos from [Unsplash API](https://unsplash.com/documentation). Users can also search photos and also filter the results based on the color, orientation, and order filters. The photos are listed using infinite scroll.
 
 ### [Live Demo](https://unsplash.aadilmehraj.dev/)
 
-![image](https://user-images.githubusercontent.com/26774310/124156866-c12fc080-dab5-11eb-9d2a-e7d6385affcc.png)
-![image](https://user-images.githubusercontent.com/26774310/124156898-cc82ec00-dab5-11eb-9c0c-0ddf979a4c4f.png)
+
+![Screenshot 2022-05-24 at 6 56 01 PM](https://user-images.githubusercontent.com/26774310/170048983-22526723-6289-40aa-914e-6dee25e02b3a.png)
+
+
+![Screenshot 2022-05-24 at 6 57 13 PM](https://user-images.githubusercontent.com/26774310/170048971-dcff85f8-e1de-48ab-83bc-2a13f1ea8f1d.png)
+
+
+![Screenshot 2022-05-24 at 6 57 28 PM](https://user-images.githubusercontent.com/26774310/170048941-04e47d74-5b57-4e31-9121-37d3e3de7436.png)
+
+
+
 
 ## API Key (Client ID)
 
